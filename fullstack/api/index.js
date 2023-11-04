@@ -12,3 +12,7 @@ app.use(cookieParser());
 app.listen(4000,()=>{
     console.log("Listening on Port 4000");
 })
+
+app.get("/", ()=> {
+    console.log("Hello world!!");
+})
