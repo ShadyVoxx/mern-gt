@@ -12,9 +12,9 @@ const CalenderWidget = () => {
 	const [selectDate, setSelectDate] = useState(currentDate);
 	return (
 		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
-			<div className="w-96 h-96 ">
+			<div className="w-96 h-96 p-5 sm:p-0">
 				<div className="flex justify-between items-center">
-					<h1 className="select-none font-semibold">
+					<h1 className="select-none font-semibold w-40">
 						{months[today.month()]}, {today.year()}
 					</h1>
 					<div className="flex gap-10 items-center ">

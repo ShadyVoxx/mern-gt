@@ -2,7 +2,7 @@ import React from "react";
 
 const EventMenu = ({ selectDate }) => {
   return (
-    <div className="h-96 w-96 sm:px-5">
+    <div className="h-96 w-96 sm:px-5 p-5 sm:p-0">
       <h1 className="font-semibold">
         Schedule for {selectDate?.toDate().toDateString()}
       </h1>
