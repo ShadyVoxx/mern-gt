@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { logo } from "../assets/";
+import { logo } from "../assets";
 import {
   Navbar,
  Collapse,
