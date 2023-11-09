@@ -11,10 +11,11 @@ const CalenderWidget = () => {
 	const [today, setToday] = useState(currentDate);
 	const [selectDate, setSelectDate] = useState(currentDate);
 	return (
-		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen mt-[10%] sm:flex-row flex-col">
-			<div className="w-96 h-96 p-5 sm:p-0">
+		<div className="flex items-center">
+		<div className="flex  items-start  sm:max-w-screen-xl mx-auto  h-screen mt-10 flex-col ">
+			<div className="md:w-[90vw] lg:w-[57vw] h-auto sm:p-0 p-5">
 				<div className="flex justify-between items-center">
-					<h1 className="select-none font-semibold w-40">
+					<h1 className="select-none font-semibold w-38 sm:text-lg text-md">
 						{months[today.month()]}, {today.year()}
 					</h1>
 					<div className="flex gap-10 items-center ">
@@ -25,7 +26,7 @@ const CalenderWidget = () => {
 							}}
 						/>
 						<h1
-							className=" cursor-pointer hover:scale-105 transition-all"
+							className=" cursor-pointer hover:scale-105 transition-all text-md"
 							onClick={() => {
 								setToday(currentDate);
 							}}
@@ -43,12 +44,12 @@ const CalenderWidget = () => {
 				<div className="grid grid-cols-7 ">
 					{days.map((day, index) => {
 						return (
-							<h1
+							<div className="flex justify-center"><h1
 								key={index}
-								className="text-sm text-center h-14 w-14 grid place-content-center text-gray-500 select-none"
+								className="text-md text-center h-14 w-14 grid place-content-center text-gray-500 select-none"
 							>
 								{day}
-							</h1>
+							</h1></div>
 						);
 					})}
 				</div>
@@ -59,25 +60,39 @@ const CalenderWidget = () => {
 							return (
 								<div
 									key={index}
-									className="p-2 text-center h-14 grid place-content-center text-sm border-t"
+								
+									className={cn(
+										currentMonth ? "" : "text-gray-400",
+										today
+											? "bg-red-600 text-white"
+											: "",
+										selectDate
+											.toDate()
+											.toDateString() ===
+											date.toDate().toDateString()
+											? "bg-black text-white"
+											: "",
+										" hover:bg-black hover:text-white transition-all cursor-pointer select-none p-2 text-center h-14 sm:h-[100px] grid place-content-center border-t"
+									)}
+									onClick={() => {
+										setSelectDate(date);
+									}}
 								>
 									<h1
 										className={cn(
 											currentMonth ? "" : "text-gray-400",
 											today
-												? "bg-red-600 text-white"
+												? " text-white"
 												: "",
 											selectDate
 												.toDate()
 												.toDateString() ===
 												date.toDate().toDateString()
-												? "bg-black text-white"
+												? " text-white"
 												: "",
-											"h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
+											"grid place-content-center sm:text-lg text-sm"
 										)}
-										onClick={() => {
-											setSelectDate(date);
-										}}
+										
 									>
 										{date.date()}
 									</h1>
@@ -89,6 +104,7 @@ const CalenderWidget = () => {
 			</div>
       {/* EVENT MENU */}
 			<EventMenu selectDate={selectDate} />
+		</div>
 		</div>
 	);
 }
