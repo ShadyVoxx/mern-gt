@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import './App.css'
 import Calender from './pages/CalenderPage'
+import LoginPage from './pages/LoginPage'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-    <Calender/>
-     <p>PLEASE WORK</p>
+    <LoginPage />
         
     </>
   )

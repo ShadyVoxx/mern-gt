@@ -64,7 +64,7 @@ const CalenderWidget = () => {
 									className={cn(
 										currentMonth ? "" : "text-gray-400",
 										today
-											? "bg-red-600 text-white"
+											? "bg-red-700 text-white"
 											: "",
 										selectDate
 											.toDate()
