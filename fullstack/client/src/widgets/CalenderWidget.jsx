@@ -102,9 +102,9 @@ const CalenderWidget = () => {
 					)}
 				</div>
 			</div>
-      {/* EVENT MENU */}
+      					{/* EVENT MENU */}
 			<EventMenu selectDate={selectDate} />
-		</div>
+			</div>
 		</div>
 	);
 }
