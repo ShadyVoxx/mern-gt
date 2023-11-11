@@ -1,37 +1,46 @@
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcrypt"
 import jwt from 'jsonwebtoken';
 import cookieParser from "cookie-parser";
 import User from "./models/User.js";
 import Event from "./models/Event.js";
 import bodyParser from "body-parser";
+import 'dotenv/config';
 
+/* EXPRESS SERVER AND MIDDLEWARE */
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }))
 
+/* ENVIRONMENT VARIABLES */
+const port = process.env.PORT;
+const mongoURL = process.env.MONGODB_URL;
+const secret = process.env.SECRET;
 
-await mongoose.connect("mongodb+srv://N_N:oUo9SPltzjKY4hen@cluster0.x1drsyb.mongodb.net/?retryWrites=true&w=majority");
 
-app.listen(4000,()=>{
-    console.log("Listening on Port 4000");
-})
+/* MONGODB CONNECTION */
+await mongoose.connect(mongoURL);
 
+/* SALTING & HASHING */
+const salt = await bcrypt.genSalt(10);
+
+/* GET REQUESTS */
 app.get("/", ()=> {
     console.log("Hello world!!");
 });
 
+/* POST REQUESTS */
 app.post("/register", async (req,res)=>{
     const {username,password} = req.body;
     console.log(req.body);
     try{
     const userDoc = await User.create({
         username, 
-        password});
+        password: bcrypt.hashSync(password,salt)});
     res.json(userDoc);}
     catch(err){
         console.log(err);
@@ -39,4 +48,8 @@ app.post("/register", async (req,res)=>{
     }
 });
 
-//mongodb+srv://N_N:oUo9SPltzjKY4hen@cluster0.x1drsyb.mongodb.net/?retryWrites=true&w=majority
+/* LISTEN METHOD */
+app.listen(port,()=>{
+    console.log("Listening on Port "+port);
+})
+
