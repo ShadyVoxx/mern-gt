@@ -1,9 +1,9 @@
 import React from 'react'
-import Header from '../widgets/Header'
+import Header from '../components/Header'
 import CalenderWidget from '../widgets/CalenderWidget'
 import EventMenu from '../widgets/EventMenu'
 
-const Calender = () => {
+const CalenderPage = () => {
   return (
     <>
     <Header />
@@ -13,4 +13,4 @@ const Calender = () => {
   )
 }
 
-export default Calender
+export default CalenderPage

@@ -1,6 +1,6 @@
 import React from 'react'
 import Login from '../widgets/Login'
-import Footer from '../widgets/Footer'
+import Footer from '../components/Footer'
 
 const LoginPage = () => {
   return (

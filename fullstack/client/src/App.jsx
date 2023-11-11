@@ -1,16 +1,21 @@
-import { useState } from 'react'
-import './App.css'
-import Calender from './pages/CalenderPage'
-import LoginPage from './pages/LoginPage'
+
+import {Route, Routes} from "react-router-dom";
+import CalenderPage from './pages/CalenderPage';
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import Layout from "./components/Layout";
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-    <>
-    <LoginPage />
-        
-    </>
+    <Routes>
+      <Route path="/" element={<Layout />} >
+        <Route index element={<HomePage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/calender' element={<CalenderPage />} />
+      </Route>
+    </Routes>
   )
 }
 
