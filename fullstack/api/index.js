@@ -48,6 +48,29 @@ app.post("/register", async (req,res)=>{
     }
 });
 
+app.post("/login", async (req, res)=>{
+    const {username, password} = req.body;
+    try{
+        const userDoc = await User.findOne({username});
+        const passOk = await bcrypt.compare(password, userDoc.password);
+        if (passOk){
+            jwt.sign({username, id:userDoc._id},secret, {}, (err,token)=>{
+                if (err) throw err;
+                res.cookie('token',token).json({
+                    id:userDoc._id,
+                    username
+                });
+            });
+        }
+        else{
+            res.status(400).json("Wrong Credentials");
+        }
+    }
+    catch (e){
+        console.log(e);
+    }
+})
+
 /* LISTEN METHOD */
 app.listen(port,()=>{
     console.log("Listening on Port "+port);
