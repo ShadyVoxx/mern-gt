@@ -3,7 +3,7 @@ import { FaUser } from "react-icons/fa";
 
 const EventDisplay = (props) => {
   return (
-    <div className=" p-3 border rounded-xl mt-2 hover:bg-gray-50  hover:border-gray-300">
+    <div className=" p-3 border rounded-xl mt-2 hover:bg-gray-50  hover:border-gray-300 ">
         <h1 className='font-semibold pb-1'>{props.event}</h1>
         <p className='px-2 ml-1 border w-fit rounded-full'>{props.time}</p>
         {

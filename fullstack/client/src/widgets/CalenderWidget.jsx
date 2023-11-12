@@ -11,8 +11,8 @@ const CalenderWidget = () => {
 	const [today, setToday] = useState(currentDate);
 	const [selectDate, setSelectDate] = useState(currentDate);
 	return (
-		<div className="flex items-center">
-		<div className="flex  items-start  sm:max-w-screen-xl mx-auto  h-screen mt-10 flex-col ">
+		<div className="flex items-center h-fit">
+		<div className="flex  items-start  sm:max-w-screen-xl mx-auto  h-max mt-10 flex-col ">
 			<div className="md:w-[90vw] lg:w-[57vw] h-auto sm:p-0 p-5">
 				<div className="flex justify-between items-center">
 					<h1 className="select-none font-semibold w-38 sm:text-lg text-md">
