@@ -16,10 +16,10 @@ const ProfilePage = () => {
   return (
     <>
     <Header />
-    <div class="container mx-auto my-5 p-5">
-    <div class="md:flex no-wrap md:-mx-2">
+    <div className="container mx-auto my-5 p-5">
+    <div className="md:flex no-wrap md:-mx-2">
        <ProfilePicWidget />
-        <div class="w-full md:w-9/12 mx-2 h-fit ">
+        <div className="w-full md:w-9/12 mx-2 h-fit ">
         <AboutWidget/>
         <RegisteredEvents />
         
