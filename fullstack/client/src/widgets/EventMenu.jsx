@@ -1,6 +1,5 @@
 import React from "react";
 import EventDisplay from "./EventDisplay";
-import { FaUser } from "react-icons/fa";
 
 const EventDisp = [
   {event: 'Event1', time:"9:30-10:30",noofusers: "4"},
