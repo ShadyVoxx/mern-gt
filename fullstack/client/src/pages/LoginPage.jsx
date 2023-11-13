@@ -5,28 +5,41 @@ import {UserContext} from "../UserContext";
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [correct, setCorrect] = useState(true);
+  const [agree, setAgree] = useState(false);
   const [redirect, setRedirect] = useState(false);
+  const [formSubmitted, setFormSubmitted] = useState(false);
   const {setUserInfo} = useContext(UserContext);
+
   async function login(ev){
-    ev.preventDefault();
-    const response = await fetch('http://localhost:4000/login',{
-      method: 'POST',
-      body: JSON.stringify({username,password}),
-      headers: {'Content-Type': 'application/json'},
-      credentials: 'include'});
-    if (response.ok){
-      response.json().then(userInfo =>{
-        setUserInfo(userInfo);
-        setRedirect(true);
-      })
-    }
-    else{
-      alert('Invalid Credentials');
-    }
-    if (redirect){
-      return <Navigate to={'/calender'} />
-    }
+      ev.preventDefault();
+      setFormSubmitted(true);
+      if (agree){
+        const response = await fetch('http://localhost:4000/login',{
+          method: 'POST',
+          body: JSON.stringify({username,password}),
+          headers: {'Content-Type': 'application/json'},
+          credentials: 'include'});
+        if (response.ok){
+          await response.json().then(userInfo =>{
+            setUserInfo(userInfo);
+            setRedirect(true);
+          })
+        }
+        else{
+          setCorrect(false);
+        }
+        }
+      else{
+        setCorrect(false);
+      }
+      setFormSubmitted(false);
   }
+
+  if (redirect){
+    return <Navigate to={'/calender'} />
+  }
+
 
   return (
     <div className='flex justify-center items-center  h-[70vh]'>
@@ -36,7 +49,7 @@ const LoginPage = () => {
   </h4>
   <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96" onSubmit = {login}>
     <div className="mb-4 flex flex-col gap-6">
-      <div class="relative h-11 w-full min-w-[200px]">
+      <div className="relative h-11 w-full min-w-[200px]">
         <input
           className="peer h-full w-full rounded-md border border-blue-gray-200 border-t-transparent bg-transparent px-3 py-3 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 focus:border-2 focus:border-red-800 focus:border-t-transparent focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50"
           placeHolder=" "
@@ -60,7 +73,10 @@ const LoginPage = () => {
         </label>
       </div>
     </div>
-    <p className='text-red-800'>Invalid Login Credentials </p>
+    <p className={`text-red-800 ${correct && !formSubmitted ? "hidden" : ''}`}>
+     
+      {`${agree ? "Invalid Login Credentials" : "Please Agree to the Terms and Conditions"}`}
+    </p>
     <div className="inline-flex items-center">
       <label
         className="relative -ml-2.5 flex cursor-pointer items-center rounded-full p-3"
@@ -71,6 +87,8 @@ const LoginPage = () => {
           type="checkbox"
           className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-red-800 checked:bg-red-800 checked:before:bg-red-800 hover:before:opacity-10"
           id="checkbox"
+          checked={agree}
+          onChange = {(ev) => {setAgree(ev.target.checked); setFormSubmitted(false);}}
         />
         <span className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
           <svg
@@ -104,11 +122,10 @@ const LoginPage = () => {
         </p>
       </label>
     </div>
-    <button
+    <button 
       className="mt-6 block w-full select-none rounded-lg bg-red-800 py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-red-700/20 transition-all hover:shadow-lg hover:shadow-red-700/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-      type="button"
-      data-ripple-light="true"
-
+      type="submit"
+     data-ripple-light="true"
     >
      Login
     </button>

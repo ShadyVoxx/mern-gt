@@ -10,10 +10,14 @@ import bodyParser from "body-parser";
 import 'dotenv/config';
 
 /* EXPRESS SERVER AND MIDDLEWARE */
+const corsOptions ={
+    origin:'http://localhost:5173', 
+    credentials:true,            
+ } 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }))
 
 /* ENVIRONMENT VARIABLES */
@@ -61,6 +65,7 @@ app.post("/login", async (req, res)=>{
                     username
                 });
             });
+            res.json("Success");
         }
         else{
             res.status(400).json("Wrong Credentials");
@@ -68,6 +73,7 @@ app.post("/login", async (req, res)=>{
     }
     catch (e){
         console.log(e);
+        res.status(400).json("Wrong Credentials");
     }
 })
 
