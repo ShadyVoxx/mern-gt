@@ -8,12 +8,10 @@ const LoginPage = () => {
   const [correct, setCorrect] = useState(true);
   const [agree, setAgree] = useState(false);
   const [redirect, setRedirect] = useState(false);
-  const [formSubmitted, setFormSubmitted] = useState(false);
   const {setUserInfo} = useContext(UserContext);
 
   async function login(ev){
       ev.preventDefault();
-      setFormSubmitted(true);
       if (agree){
         const response = await fetch('http://localhost:4000/login',{
           method: 'POST',
@@ -57,7 +55,7 @@ const LoginPage = () => {
           onChange={ ev => setUsername(ev.target.value)}
         />
         <label className="before:content[' '] after:content[' '] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none text-[11px] font-normal leading-tight text-blue-gray-400 transition-all before:pointer-events-none before:mt-[6.5px] before:mr-1 before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-t before:border-l before:border-blue-gray-200 before:transition-all after:pointer-events-none after:mt-[6.5px] after:ml-1 after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-t after:border-r after:border-blue-gray-200 after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.1] peer-placeholder-shown:text-blue-gray-500 peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-red-800 peer-focus:before:border-t-2 peer-focus:before:border-l-2 peer-focus:before:!border-pink-500 peer-focus:after:border-t-2 peer-focus:after:border-r-2 peer-focus:after:!border-pink-500 peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
-          Name
+          Username
         </label>
       </div>
       <div className="relative h-11 w-full min-w-[200px]">
@@ -73,9 +71,9 @@ const LoginPage = () => {
         </label>
       </div>
     </div>
-    <p className={`text-red-800 ${correct && !formSubmitted ? "hidden" : ''}`}>
+    <p className={`text-red-800 ${correct  ? "hidden" : ''}`}>
      
-      {`${agree ? "Invalid Login Credentials" : "Please Agree to the Terms and Conditions"}`}
+      {`${agree ? "Invalid credentials" : "Please Agree to the Terms and Conditions"}`}
     </p>
     <div className="inline-flex items-center">
       <label
@@ -88,7 +86,7 @@ const LoginPage = () => {
           className="before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-red-800 checked:bg-red-800 checked:before:bg-red-800 hover:before:opacity-10"
           id="checkbox"
           checked={agree}
-          onChange = {(ev) => {setAgree(ev.target.checked); setFormSubmitted(false);}}
+          onChange = {(ev) => {setAgree(ev.target.checked); setCorrect(true);}}
         />
         <span className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
           <svg

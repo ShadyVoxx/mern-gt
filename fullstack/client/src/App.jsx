@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import Layout from "./components/Layout";
 import ProfilePage from './pages/ProfilePage';
+import AdminCalender from "./pages/AdminCalender";
 import { UserContextProvider } from "./UserContext";
 
 function App() {
@@ -17,7 +18,8 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/calender' element={<CalenderPage />} />
-          <Route path='/profile' element={<ProfilePage />} />
+          <Route path='/profile' element={<ProfilePage />} />          
+          <Route path='/admincalender' element={<AdminCalender />} />
         </Route>
     </Routes> 
   </UserContextProvider>

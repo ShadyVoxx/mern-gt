@@ -3,7 +3,7 @@ import logo from '../assets/GT_logo.png'
 
 const Footer = () => {
   return (
-    <div className="w-full bg-white p-8 bottom-0 relative pt-32">
+    <div className="w-full bg-white p-8 bottom-0 relative pt-32 ">
   <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
     <img src={logo} alt="logo-ct" className="w-10" />
     <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
