@@ -18,8 +18,12 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/calender' element={<CalenderPage />} />
-          <Route path='/profile' element={<ProfilePage />} />          
-          <Route path='/admincalender' element={<AdminCalender />} />
+          <Route path='/profile/:username' loader={({ params }) => {
+    console.log(params.username); // "hotspur"
+  }}
+  action={({ params }) => {}}
+element={<ProfilePage />} />          
+          <Route path='/admincalender'  element={<AdminCalender />} />
         </Route>
     </Routes> 
   </UserContextProvider>

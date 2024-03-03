@@ -12,8 +12,9 @@ import 'dotenv/config';
 /* EXPRESS SERVER AND MIDDLEWARE */
 const corsOptions ={
     origin:'http://localhost:5173', 
-    credentials:true,            
+    credentials:true
  } 
+
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
@@ -32,10 +33,15 @@ await mongoose.connect(mongoURL);
 /* SALTING & HASHING */
 const salt = await bcrypt.genSalt(10);
 
+/* LISTEN METHOD */
+app.listen(port,()=>{
+    console.log("Listening on Port "+port);
+})
+
 /* GET REQUESTS */
-app.get("/", ()=> {
+app.get('/', (req, res) => {
     console.log("Hello world!!");
-});
+  });
 
 /* POST REQUESTS */
 app.post("/register", async (req,res)=>{
@@ -64,8 +70,9 @@ app.post("/login", async (req, res)=>{
                     id:userDoc._id,
                     username
                 });
+                res.status(200).json("Success");
             });
-            res.json("Success");
+         
         }
         else{
             res.status(400).json("Wrong Credentials");
@@ -77,8 +84,36 @@ app.post("/login", async (req, res)=>{
     }
 })
 
-/* LISTEN METHOD */
-app.listen(port,()=>{
-    console.log("Listening on Port "+port);
+app.get('/calender', (req, res)=>{
+    console.log("hello");
+    const {token} = req.cookies;
+    jwt.verify(token, secret, {}, (err, info)=>{
+        if (err){
+            console.error("JWT verification error:", err);
+            return res.status(401).json({error: "Unauthorized"});
+        }
+        res.json(info);
+    })
 })
+
+app.get('/profile/:username', async (req, res) => {
+    try {
+        console.log("hello");
+        const {username} = req.params;
+        console.log(username);
+    
+
+        const userDoc = await User.findOne({ username });
+
+        if (!userDoc) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json(userDoc);
+    } catch (e) {
+        res.status(500).json({ error: 'Internal Server Error' });
+        console.error(e);
+    }
+});
+
 

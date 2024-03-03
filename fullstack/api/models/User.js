@@ -10,10 +10,17 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
+        required: true
     },
     contactNumber: String,
     handle: String,
-    currentEvents: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
+    currentEvents: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+    position: String,
+    eventsCovered : Number,
+    Department: {
+        type: String,
+        maxLength: 3
+    }
 });
 
 // Use the directly exported model

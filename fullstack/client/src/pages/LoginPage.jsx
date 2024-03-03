@@ -31,7 +31,6 @@ const LoginPage = () => {
       else{
         setCorrect(false);
       }
-      setFormSubmitted(false);
   }
 
   if (redirect){
