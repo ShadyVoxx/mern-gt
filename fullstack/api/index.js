@@ -30,6 +30,7 @@ const secret = process.env.SECRET;
 /* MONGODB CONNECTION */
 await mongoose.connect(mongoURL);
 
+
 /* SALTING & HASHING */
 const salt = await bcrypt.genSalt(10);
 
@@ -101,18 +102,45 @@ app.get('/profile/:username', async (req, res) => {
         console.log("hello");
         const {username} = req.params;
         console.log(username);
-    
-
         const userDoc = await User.findOne({ username });
 
         if (!userDoc) {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        res.status(200).json(userDoc);
+        const event = await Event.find({ users: userDoc._id }).exec();
+
+        console.log(event);
+        return res.status(200).json({userInfo: userDoc, events: event});
     } catch (e) {
         res.status(500).json({ error: 'Internal Server Error' });
         console.error(e);
+    }
+});
+
+app.post('/userpositions', async (req, res) => {
+    try {
+        const { users } = req.body;
+        const userPositions = [];
+        console.log(users);
+
+       for (const _id of users) {
+            const userDoc = await User.findById(_id);
+
+            if (!userDoc) {
+                return res.status(404).json("User Not Found");
+            }
+
+            // Check for the existence of userDoc.position before pushing to userPositions
+            if (userDoc.position) {
+                userPositions.push(userDoc.position);
+            }
+       }
+
+        return res.status(200).json({ userPositions });
+    } catch (e) {
+        console.log(e);
+        return res.status(500).json("Internal Server Error");
     }
 });
 

@@ -6,8 +6,6 @@ import ProfilePicWidget from '../widgets/ProfilePicWidget';
 import AboutWidget from '../widgets/AboutWidget';
 import RegisteredEvents from '../widgets/RegisteredEvents';
 
-// ...
-
 const ProfilePage = () => {
   const { username } = useParams();
   const [profileInfo, setProfileInfo] = useState(null);
@@ -33,7 +31,7 @@ const ProfilePage = () => {
         setProfileInfo(data);
       } catch (error) {
         console.error(error);
-        setError(error);
+        setError(error.message || 'An error occurred');
       } finally {
         setIsLoading(false);
       }
@@ -41,18 +39,18 @@ const ProfilePage = () => {
 
     fetchData();
   }, [username]);
-
+  console.log(profileInfo);
   return (
     <>
       <Header />
       <div className="container mx-auto my-5 p-5">
         <div className="md:flex no-wrap md:-mx-2">
-          <ProfilePicWidget username = {profileInfo.username}/>
+          <ProfilePicWidget username={profileInfo?.userInfo?.username} />
           <div className="w-full md:w-9/12 mx-2 h-fit">
             {isLoading && <p>Loading...</p>}
-            {error && <p>Error: {error.message}</p>}
-            {!isLoading && !error && <AboutWidget profileInfo={profileInfo} />}
-            <RegisteredEvents />
+            {error && <p>Error: {error}</p>}
+            {!isLoading && !error && <AboutWidget profileInfo={profileInfo?.userInfo} />}
+            {!isLoading && !error && <RegisteredEvents events={profileInfo?.events} />}
           </div>
         </div>
       </div>

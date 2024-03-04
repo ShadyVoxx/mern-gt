@@ -7,7 +7,8 @@ const EventDisp = [
   {event: 'Event3', time:"11:30-12:30",noofusers: "4"},
 ]
 
-const RegisteredEvents = () => {
+const RegisteredEvents = (props) => {
+  const {events} = props;
   return (
     <div className="bg-white p-3 shadow-md rounded-lg mt-5 border-2 h-fit">
 
@@ -23,13 +24,13 @@ const RegisteredEvents = () => {
             </div>
             <ul className="list-inside space-y-2">
                                   {
-                  EventDisp.map((event, index) => {
+                  events.map((event, index) => {
                     return (
                       <EventDisplay
                         key={index}
-                        event={event.event}
-                        time={event.time}
-                        noofusers={event.noofusers}
+                        title={event.title}
+                        timing={event.timing}
+                        users={event.users}
                       />
                     );
                   })

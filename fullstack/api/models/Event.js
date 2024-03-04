@@ -3,8 +3,11 @@ const {Schema, model} = mongoose;
 
 const eventSchema = new Schema({
     title:String,
-    timing:Date,
-    users:[{type:Schema.Types.ObjectId, ref:'User'}]
+    date: Date,
+    timing:String,
+    users:[{type:Schema.Types.ObjectId, ref:'User'}],
+    location:String,
+    requirements:String
 },{
     timestamps:true
 });

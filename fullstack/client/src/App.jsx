@@ -19,7 +19,7 @@ function App() {
           <Route path='/login' element={<LoginPage />} />
           <Route path='/calender' element={<CalenderPage />} />
           <Route path='/profile/:username' loader={({ params }) => {
-    console.log(params.username); // "hotspur"
+           console.log(params.username);
   }}
   action={({ params }) => {}}
 element={<ProfilePage />} />          
