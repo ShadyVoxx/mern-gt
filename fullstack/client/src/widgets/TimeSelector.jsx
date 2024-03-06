@@ -8,7 +8,16 @@ import { MobileTimePicker } from '@mui/x-date-pickers/MobileTimePicker';
 import { DesktopTimePicker } from '@mui/x-date-pickers/DesktopTimePicker';
 import { StaticTimePicker } from '@mui/x-date-pickers/StaticTimePicker';
 
-export default function ResponsiveTimePickers() {
+export default function ResponsiveTimePickers(props) {
+    const {formData, setFormData} = props
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      console.log(name, value);
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    };
     return (
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DemoContainer
@@ -20,8 +29,11 @@ export default function ResponsiveTimePickers() {
           ]}
           className={"z-100"}
         >
-          <DemoItem label="Desktop variant">
-            <DesktopTimePicker defaultValue={dayjs('2022-04-17T15:30')} />
+          <DemoItem label={props.title}>
+            <DesktopTimePicker defaultValue={dayjs()} onChange={e => setFormData((prevData) => ({
+              ...prevData,
+              startTime: e
+            }))}/>
           </DemoItem>
           
         </DemoContainer>

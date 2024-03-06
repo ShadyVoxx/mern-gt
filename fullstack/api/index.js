@@ -144,4 +144,7 @@ app.post('/userpositions', async (req, res) => {
     }
 });
 
+app.post("/addevent", async (req, res) => {
+    console.log(req.body);
+});
 

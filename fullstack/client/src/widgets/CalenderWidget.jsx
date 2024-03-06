@@ -1,15 +1,18 @@
 import dayjs from "dayjs";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { generateDate, months } from "../util/Calender.jsx";
 import cn from "../util/Cn.jsx";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import EventMenu from "./EventMenu.jsx";
+import { UserContext } from "../UserContext.jsx";
 
-const CalenderWidget = () => {
+const CalenderWidget = (props) => {
     const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 	const currentDate = dayjs();
 	const [today, setToday] = useState(currentDate);
-	const [selectDate, setSelectDate] = useState(currentDate);
+	const {selectDate, setSelectDate} = props;
+	//const { selectDate, setSelectDate } = useContext(UserContext);
+
 	return (
 		<div className="flex items-center h-fit">
 		<div className="flex  items-start  sm:max-w-screen-xl mx-auto  h-max mt-10 flex-col ">

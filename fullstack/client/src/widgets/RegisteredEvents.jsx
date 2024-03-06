@@ -8,7 +8,6 @@ const EventDisp = [
 ]
 
 const RegisteredEvents = (props) => {
-  const {events} = props;
   return (
     <div className="bg-white p-3 shadow-md rounded-lg mt-5 border-2 h-fit">
 

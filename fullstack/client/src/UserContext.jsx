@@ -4,9 +4,11 @@ export const UserContext = createContext({});
 
 export function UserContextProvider({children}){
     const [info,setUserInfo] = useState({});
-    return (
-        <UserContext.Provider value = {{info, setUserInfo}} >
-            {children}
-        </UserContext.Provider>
-    )
+    const [selectDate, setSelectDate] = useState(null);
+
+  return (
+    <UserContext.Provider value={{ info, setUserInfo, selectDate, setSelectDate }}>
+      {children}
+    </UserContext.Provider>
+  );
 }
