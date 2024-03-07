@@ -32,7 +32,8 @@ export default function ResponsiveTimePickers(props) {
           <DemoItem label={props.title}>
             <DesktopTimePicker defaultValue={dayjs()} onChange={e => setFormData((prevData) => ({
               ...prevData,
-              startTime: e
+              [props.title === "Start Time" ? "startTime" : "endTime"]: e.format('h:mm A'),
+              date: e
             }))}/>
           </DemoItem>
           

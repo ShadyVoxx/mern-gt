@@ -23,6 +23,7 @@ const AddEvents = (props) => {
     location: "",
     startTime: "",
     endTime: "",
+    date:"",
   });
 
   const handleInputChange = (e) => {
@@ -34,12 +35,12 @@ const AddEvents = (props) => {
     }));
   };
 
-  console.log(selectDate);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen((cur) => !cur);
   const handlePost = async () => {
     console.log(formData);
-    setOpen((cur) => !cur);
+    
     const postData = {
       date: selectDate?.toISOString(),
       eventName: formData.eventName,
@@ -55,10 +56,14 @@ const AddEvents = (props) => {
       },
       body: JSON.stringify(postData)
     });
+
+    console.log(response);
     if (!response.ok) {
       console.error('Failed to Add Event:', response.status, response.statusText);
     }
-    
+    else{
+      setOpen((cur) => !cur);
+    }
   }
   return (
     <>
@@ -115,6 +120,7 @@ const AddEvents = (props) => {
               title="End Time"
               formData={formData}
               setFormData={setFormData}
+              
               
             />
           </CardBody>

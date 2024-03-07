@@ -145,6 +145,34 @@ app.post('/userpositions', async (req, res) => {
 });
 
 app.post("/addevent", async (req, res) => {
-    console.log(req.body);
+    try{
+        const { 
+            title,
+            startTime,
+            endTime,
+            location,
+            date
+         } = req.body;
+        if (!startTime || !endTime || !location || !date || startTime > endTime){
+            return res.status(400).json("Failed to Create");
+        }
+        const eventDoc = await Event.create({
+            title,
+            startTime,
+            endTime,
+            location,
+            date
+        });
+        if (eventDoc){
+            return res.status(200).json(eventDoc)
+        }
+        else{
+            return res.status(400).json("Failed to Create");
+        }
+    }
+    catch(e){
+        console.log(e);
+        return res.status(500).json("Internal Server Error");
+    }
 });
 
