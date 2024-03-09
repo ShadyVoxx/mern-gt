@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 const {Schema, model} = mongoose;
 
 const eventSchema = new Schema({
-    title:String,
+    eventName:String,
     date: Date,
     startTime:String,
     endTime: String,

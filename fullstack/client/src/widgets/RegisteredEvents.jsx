@@ -8,6 +8,8 @@ const EventDisp = [
 ]
 
 const RegisteredEvents = (props) => {
+  const {events} = props;
+  console.log(events);
   return (
     <div className="bg-white p-3 shadow-md rounded-lg mt-5 border-2 h-fit">
 
@@ -27,8 +29,9 @@ const RegisteredEvents = (props) => {
                     return (
                       <EventDisplay
                         key={index}
-                        title={event.title}
-                        timing={event.timing}
+                        eventName={event.eventName}
+                        startTime={event.startTime}
+                        endTime={event.endTime}
                         users={event.users}
                       />
                     );

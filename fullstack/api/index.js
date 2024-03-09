@@ -9,6 +9,9 @@ import Event from "./models/Event.js";
 import bodyParser from "body-parser";
 import 'dotenv/config';
 
+
+
+
 /* EXPRESS SERVER AND MIDDLEWARE */
 const corsOptions ={
     origin:'http://localhost:5173', 
@@ -20,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }))
+
 
 /* ENVIRONMENT VARIABLES */
 const port = process.env.PORT;
@@ -147,17 +151,17 @@ app.post('/userpositions', async (req, res) => {
 app.post("/addevent", async (req, res) => {
     try{
         const { 
-            title,
+            eventName,
             startTime,
             endTime,
             location,
             date
          } = req.body;
-        if (!startTime || !endTime || !location || !date || startTime > endTime){
+        if (!startTime || !endTime || !location || !date || startTime >= endTime){
             return res.status(400).json("Failed to Create");
         }
         const eventDoc = await Event.create({
-            title,
+            eventName,
             startTime,
             endTime,
             location,
@@ -176,3 +180,17 @@ app.post("/addevent", async (req, res) => {
     }
 });
 
+app.post("/date/eventdetails", async (req, res) => {
+    try{
+        let {date} = req.body;
+        console.log(date);
+    
+        const eventDocs = await Event.find({ date: new Date(date) });
+
+        return res.status(200).json(eventDocs);
+    }
+    catch (e){
+        console.log(e)
+        return res.status(500).json("Internal Server Error")
+    }
+})
