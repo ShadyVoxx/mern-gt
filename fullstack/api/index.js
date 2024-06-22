@@ -41,12 +41,36 @@ const salt = await bcrypt.genSalt(10);
 /* LISTEN METHOD */
 app.listen(port,()=>{
     console.log("Listening on Port "+port);
-})
+});
+
+/* EXTERNAL FUNCTIONS */
+
+//--> TIME CONVERSIONS 
+function convertTo24Hour(timeStr){
+    let [time,modifier] = timeStr.split(' ');
+    let [hours,minutes] = time.split(':');
+    if (modifier == "PM"){
+        time = String(parseInt(time) + 12)+":"+minutes;
+    }
+    if (hours.length < 2){
+        time = "0"+time;
+    }
+    return time;
+}
+
+function compareTime(timeStr1,timeStr2){
+    timeStr1 = convertTo24Hour(timeStr1);
+    timeStr2 = convertTo24Hour(timeStr2);
+    return timeStr1 >= timeStr2;
+}
+
 
 /* GET REQUESTS */
 app.get('/', (req, res) => {
     console.log("Hello world!!");
   });
+
+
 
 /* POST REQUESTS */
 app.post("/register", async (req,res)=>{
@@ -103,10 +127,10 @@ app.get('/calender', (req, res)=>{
 
 app.get('/profile/:username', async (req, res) => {
     try {
-        console.log("hello");
+      
         const {username} = req.params;
-        console.log(username);
         const userDoc = await User.findOne({ username });
+      
 
         if (!userDoc) {
             return res.status(404).json({ message: 'User not found' });
@@ -149,6 +173,7 @@ app.post('/userpositions', async (req, res) => {
 });
 
 app.post("/addevent", async (req, res) => {
+    console.log("Add Event Called");
     try{
         const { 
             eventName,
@@ -157,8 +182,11 @@ app.post("/addevent", async (req, res) => {
             location,
             date
          } = req.body;
-        if (!startTime || !endTime || !location || !date || startTime >= endTime){
-            return res.status(400).json("Failed to Create");
+         console.log(req.body);
+        if (!startTime || !endTime || !location || !date || compareTime(startTime, endTime)){
+            console.log(startTime, endTime);
+            console.log("Illegal Format", startTime >= endTime);
+            return res.status(400).json("Illegal Format");
         }
         const eventDoc = await Event.create({
             eventName,

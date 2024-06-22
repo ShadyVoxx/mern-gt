@@ -27,7 +27,7 @@ const Footer = () => {
   </div>
   <hr className="my-8 border-blue-gray-50" />
   <p className="block text-center font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
-    © 2023 TheGuindyTimes
+    © 2024 TheGuindyTimes
   </p>
 </div>
   )

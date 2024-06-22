@@ -16,7 +16,7 @@ const CalenderWidget = (props) => {
 	return (
 		<div className="flex items-center h-fit">
 		<div className="flex  items-start  sm:max-w-screen-xl mx-auto  h-max mt-10 flex-col ">
-			<div className="md:w-[90vw] lg:w-[57vw] h-auto sm:p-0 p-5">
+			<div className="md:w-[90vw] lg:w-[57vw] h-auto  sm:p-8 p-5 border-2 shadow border-gray-300 rounded-xl m-5">
 				<div className="flex justify-between items-center">
 					<h1 className="select-none font-semibold w-38 sm:text-lg text-md">
 						{months[today.month()]}, {today.year()}

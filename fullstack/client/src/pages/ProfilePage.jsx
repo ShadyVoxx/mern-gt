@@ -5,6 +5,7 @@ import Header from '../components/Header';
 import ProfilePicWidget from '../widgets/ProfilePicWidget';
 import AboutWidget from '../widgets/AboutWidget';
 import RegisteredEvents from '../widgets/RegisteredEvents';
+import Noevents from '../assets/noevent_illustrat.png';
 
 const ProfilePage = () => {
   const { username } = useParams();
@@ -39,7 +40,7 @@ const ProfilePage = () => {
 
     fetchData();
   }, [username]);
-  console.log(profileInfo);
+
   return (
     <>
       <Header />
@@ -50,7 +51,7 @@ const ProfilePage = () => {
             {isLoading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             {!isLoading && !error && <AboutWidget profileInfo={profileInfo?.userInfo} />}
-            {!isLoading && !error && <RegisteredEvents events={profileInfo?.events} />}
+            {!isLoading && !error && <RegisteredEvents events={profileInfo.events} />}
           </div>
         </div>
       </div>

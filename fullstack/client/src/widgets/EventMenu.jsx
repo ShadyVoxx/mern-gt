@@ -2,6 +2,7 @@ import React from "react";
 import EventDisplay from "./EventDisplay";
 import url from "../Constant";
 import { useState, useEffect} from "react";
+import Noevents from '../assets/noevent_illustrat.png';
 
 // const EventDisp = [
 //   {event: 'Event1', time:"9:30-10:30",noofusers: "4"},
@@ -46,7 +47,10 @@ const EventMenu = (props) => {
       <h1 className="font-semibold">
         Schedule for {selectDate?.toDate().toDateString()}
       </h1>
-      <p className="text-gray-400">{(events.length===0 && "No meetings for today.")}</p>
+      <div className=" flex flex-col p-10 w-full">
+      <img className="justify-center opacity-50" src={(events.length===0 && Noevents)}/>
+      <p className="">{(events.length===0 && "No events for today.")}</p>
+      </div>
       {
         events.map((event, index) => {
           return (

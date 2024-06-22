@@ -114,13 +114,13 @@ const AddEvents = (props) => {
               formData={formData}
               setFormData = {setFormData}
               onChange={(value) => handleInputChange({ target: { name: "startTime", value } })}
-              value={formData.startTime}
+              value={formData.startTime} className="z-100"
             />
             <TimeSelector
               title="End Time"
               formData={formData}
               setFormData={setFormData}
-              
+              className="z-100"
               
             />
           </CardBody>
