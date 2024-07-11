@@ -1,6 +1,9 @@
 import React from "react";
 import { useContext } from "react";
 import TimeSelector from "./TimeSelector";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckSquare, faCoffee } from '@fortawesome/fontawesome-free-solid'
+
 import {
   Button,
   Dialog,
@@ -75,7 +78,7 @@ const AddEvents = (props) => {
         size="xs"
         open={open}
         handler={handleOpen}
-        className="bg-transparent shadow-none"
+        className="bg-transparent shadow-none z-0s"
       >
         <Card className="mx-auto w-full max-w-[24rem]">
           <CardBody className="flex flex-col gap-4">
@@ -114,15 +117,20 @@ const AddEvents = (props) => {
               formData={formData}
               setFormData = {setFormData}
               onChange={(value) => handleInputChange({ target: { name: "startTime", value } })}
-              value={formData.startTime} className="z-100"
+              value={formData.startTime} className="z-1000"
             />
             <TimeSelector
               title="End Time"
               formData={formData}
               setFormData={setFormData}
-              className="z-100"
+              className="z-1000"
               
             />
+
+            <Input label="No of Experienced Users"/>
+
+            <Input label="No of Newbie Users"/>
+            
           </CardBody>
           <CardFooter className="pt-0">
             <Button variant="gradient" onClick={handlePost} fullWidth>

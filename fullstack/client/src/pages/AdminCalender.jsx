@@ -2,6 +2,7 @@ import React from 'react'
 import CalenderWidget from '../widgets/CalenderWidget'
 import Header from '../components/Header'
 import AddEvents from '../widgets/AddEvents'
+import EventDisplay from '../widgets/EventDisplay'
 import { useState } from 'react'
 import dayjs from 'dayjs';
 
@@ -16,6 +17,7 @@ const AdminCalender = () => {
        <div className='flex justify-end sm:mr-10 mr-5'>
         <AddEvents selectDate={selectDate} setSelectDate={setSelectDate}/>
         </div>
+        <EventDisplay></EventDisplay>
         </div>
        
     </>

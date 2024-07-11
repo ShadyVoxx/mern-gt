@@ -27,16 +27,16 @@ export default function ResponsiveTimePickers(props) {
             'DesktopTimePicker',
             'StaticTimePicker',
           ]}
-          className={"z-100"}
+          className={"z-0"}
         >
-          <DemoItem label={props.title}>
-            <DesktopTimePicker defaultValue={dayjs()} onChange={e => setFormData((prevData) => ({
+          <DemoItem label={props.title} className='z-0'>
+            <DesktopTimePicker className='z-1000' defaultValue={dayjs()} onChange={e => setFormData((prevData) => ({
               ...prevData,
               [props.title === "Start Time" ? "startTime" : "endTime"]: e.format('h:mm A'),
               date: e
             }))}/>
           </DemoItem>
-          
+         
         </DemoContainer>
       </LocalizationProvider>
     );
